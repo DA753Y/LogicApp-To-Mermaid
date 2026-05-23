@@ -1,0 +1,18 @@
+﻿flowchart TD
+
+  %% Triggers
+  Recurrence_Trigger(["Recurrence Trigger (Trigger)"])
+  %% Action Nodes
+  Run_PowerShell_Script["Run PowerShell Script (Function)"]
+  Send_Alert["Send Alert (API Connection)"]
+  %% Trigger to Action Connections
+  Recurrence_Trigger --> Run_PowerShell_Script
+  %% Action Connections
+  Run_PowerShell_Script -. Failed .-> Send_Alert
+  %% Style Assignments
+  class Recurrence_Trigger trigger;
+
+  %% Premium Pastel Theme Styles
+  classDef default fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#1967d2;
+  classDef trigger fill:#e6f4ea,stroke:#137333,stroke-width:2px,color:#137333;
+  classDef control fill:#fef7e0,stroke:#b06000,stroke-width:2px,color:#b06000;

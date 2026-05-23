@@ -1,0 +1,132 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {},
+  "triggers": {
+    "Recurrence": {
+      "type": "Recurrence",
+      "recurrence": {
+        "frequency": "Hour",
+        "interval": 1
+      }
+    }
+  },
+  "actions": {
+    "Initialize_Status": {
+      "type": "InitializeVariable",
+      "inputs": {
+        "variables": [
+          {
+            "name": "Status",
+            "type": "string",
+            "value": "Pending"
+          }
+        ]
+      },
+      "runAfter": {}
+    },
+    "Processing_Scope": {
+      "type": "Scope",
+      "actions": {
+        "Fetch_Remote_Data": {
+          "type": "Http",
+          "inputs": {
+            "method": "GET",
+            "uri": "https://api.example.com/data"
+          },
+          "runAfter": {}
+        },
+        "Update_Status_Success": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "Status",
+            "value": "Completed"
+          },
+          "runAfter": {
+            "Fetch_Remote_Data": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "runAfter": {
+        "Initialize_Status": [
+          "Succeeded"
+        ]
+      }
+    },
+    "Check_If_Scope_Succeeded": {
+      "type": "If",
+      "expression": {
+        "and": [
+          {
+            "equals": [
+              "@variables('Status')",
+              "Completed"
+            ]
+          }
+        ]
+      },
+      "actions": {
+        "Compose_Data_Summary": {
+          "type": "Compose",
+          "inputs": "@body('Fetch_Remote_Data')",
+          "runAfter": {}
+        },
+        "Process_Each_Item": {
+          "type": "Foreach",
+          "foreach": "@outputs('Compose_Data_Summary')?['items']",
+          "actions": {
+            "Log_Item": {
+              "type": "Compose",
+              "inputs": "@items('Process_Each_Item')",
+              "runAfter": {}
+            },
+            "Send_Notification": {
+              "type": "ApiConnection",
+              "inputs": {
+                "body": {
+                  "Message": "Item processed"
+                }
+              },
+              "runAfter": {
+                "Log_Item": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "runAfter": {
+            "Compose_Data_Summary": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "else": {
+        "actions": {}
+      },
+      "runAfter": {
+        "Processing_Scope": [
+          "Succeeded"
+        ]
+      }
+    },
+    "Send_Final_Report": {
+      "type": "Response",
+      "inputs": {
+        "statusCode": 200,
+        "body": {
+          "result": "Done"
+        }
+      },
+      "runAfter": {
+        "Check_If_Scope_Succeeded": [
+          "Succeeded",
+          "Failed"
+        ]
+      }
+    }
+  },
+  "outputs": {}
+}

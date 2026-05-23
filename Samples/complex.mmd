@@ -1,0 +1,42 @@
+﻿flowchart TD
+
+  %% Triggers
+  Recurrence(["Recurrence (Trigger)"])
+  %% Action Nodes
+  Initialize_Status["Initialize Status (Variable: Status)"]
+  subgraph Processing_Scope ["Processing_Scope (Scope)"]
+    Fetch_Remote_Data["Fetch Remote Data (HTTP GET)"]
+    Update_Status_Success["Update Status Success (Variable: Status)"]
+  end
+  subgraph Check_If_Scope_Succeeded_container ["Check_If_Scope_Succeeded (If)"]
+    Check_If_Scope_Succeeded{"Check If Scope Succeeded (If)"}
+    subgraph Check_If_Scope_Succeeded_then ["Yes Branch"]
+      Compose_Data_Summary["Compose Data Summary (Compose)"]
+      subgraph Process_Each_Item_container ["Process_Each_Item (ForEach)"]
+        Process_Each_Item[["Process Each Item (ForEach)"]]
+        Log_Item["Log Item (Compose)"]
+        Send_Notification["Send Notification (API Connection)"]
+        Process_Each_Item --> Log_Item
+      end
+    end
+    Check_If_Scope_Succeeded -- Yes --> Compose_Data_Summary
+  end
+  Send_Final_Report["Send Final Report (Response)"]
+  %% Trigger to Action Connections
+  Recurrence --> Initialize_Status
+  %% Action Connections
+  Initialize_Status --> Fetch_Remote_Data
+  Fetch_Remote_Data --> Update_Status_Success
+  Update_Status_Success --> Check_If_Scope_Succeeded
+  Compose_Data_Summary --> Process_Each_Item
+  Log_Item --> Send_Notification
+  Send_Notification --> Send_Final_Report
+  Check_If_Scope_Succeeded -- No --> Send_Final_Report
+  %% Style Assignments
+  class Recurrence trigger;
+  class Check_If_Scope_Succeeded,Process_Each_Item control;
+
+  %% Premium Pastel Theme Styles
+  classDef default fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#1967d2;
+  classDef trigger fill:#e6f4ea,stroke:#137333,stroke-width:2px,color:#137333;
+  classDef control fill:#fef7e0,stroke:#b06000,stroke-width:2px,color:#b06000;

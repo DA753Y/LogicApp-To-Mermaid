@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {},
+  "triggers": {
+    "When_a_HTTP_request_is_received": {
+      "type": "Request",
+      "kind": "Http",
+      "inputs": {
+        "schema": {}
+      }
+    }
+  },
+  "actions": {
+    "Initialize_Variable_User": {
+      "type": "InitializeVariable",
+      "inputs": {
+        "variables": [
+          {
+            "name": "UserName",
+            "type": "string",
+            "value": "Jarrod"
+          }
+        ]
+      },
+      "runAfter": {}
+    },
+    "Get_User_Profile": {
+      "type": "Http",
+      "inputs": {
+        "method": "GET",
+        "uri": "https://api.github.com/users/@{variables('UserName')}"
+      },
+      "runAfter": {
+        "Initialize_Variable_User": [
+          "Succeeded"
+        ]
+      }
+    },
+    "Send_Welcome_Email": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['office365']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/v2/Mail"
+      },
+      "runAfter": {
+        "Get_User_Profile": [
+          "Succeeded"
+        ]
+      }
+    }
+  },
+  "outputs": {}
+}

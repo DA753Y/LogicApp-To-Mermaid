@@ -1,0 +1,16 @@
+﻿flowchart TD
+
+  %% Triggers
+  HTTP_Trigger(["HTTP Trigger (Trigger)"])
+  %% Action Nodes
+  Compose_Greeting["Compose Greeting (Compose)"]
+  %% Trigger to Action Connections
+  HTTP_Trigger --> Compose_Greeting
+  %% Action Connections
+  %% Style Assignments
+  class HTTP_Trigger trigger;
+
+  %% Premium Pastel Theme Styles
+  classDef default fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#1967d2;
+  classDef trigger fill:#e6f4ea,stroke:#137333,stroke-width:2px,color:#137333;
+  classDef control fill:#fef7e0,stroke:#b06000,stroke-width:2px,color:#b06000;

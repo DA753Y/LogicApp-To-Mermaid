@@ -1,0 +1,20 @@
+﻿flowchart TD
+
+  %% Triggers
+  When_a_HTTP_request_is_received(["When a HTTP request is received (Trigger)"])
+  %% Action Nodes
+  Initialize_Variable_User["Initialize Variable User (Variable: UserName)"]
+  Get_User_Profile["Get User Profile (HTTP GET)"]
+  Send_Welcome_Email["Send Welcome Email (API Connection)"]
+  %% Trigger to Action Connections
+  When_a_HTTP_request_is_received --> Initialize_Variable_User
+  %% Action Connections
+  Initialize_Variable_User --> Get_User_Profile
+  Get_User_Profile --> Send_Welcome_Email
+  %% Style Assignments
+  class When_a_HTTP_request_is_received trigger;
+
+  %% Premium Pastel Theme Styles
+  classDef default fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#1967d2;
+  classDef trigger fill:#e6f4ea,stroke:#137333,stroke-width:2px,color:#137333;
+  classDef control fill:#fef7e0,stroke:#b06000,stroke-width:2px,color:#b06000;
