@@ -13,7 +13,7 @@ This tool is optimized for direct integration with **Excalidraw** (which allows 
     *   **JavaScript Wrappers**: Extracts JSON definitions even if assigned to a Javascript variable (e.g., `const workflow = { ... };`).
     *   **ARM Templates**: Scans the `resources` array for `Microsoft.Logic/workflows` resource types. If multiple Logic Apps exist in a single deployment template, they are all parsed and grouped into gorgeous top-level subgraphs!
 *   **Recursive Control structures**: Maps Logic App nesting hierarchies recursively. Native constructs like **Scopes**, **ForEach loops**, **Until loops**, **If conditions**, and **Switch blocks** are rendered as beautifully nested subgraphs.
-*   **No Emojis, Clean Labeling**: Adheres to a professional, emoji-free layout. Actions are labeled with their friendly user-defined names, immediately followed by the default connector/action type in brackets (e.g. `Fetch Remote Data (HTTP GET)`, `Initialize Status (Variable: Status)`, `Send Alert (servicebus)`).
+*   **Clean Labeling**: Adheres to a professional layout. Actions are labeled with their friendly user-defined names, immediately followed by the default connector/action type in brackets (e.g. `Fetch Remote Data (HTTP GET)`, `Initialize Status (Variable: Status)`, `Send Alert (servicebus)`).
 *   **Smart Link Routing & Error Paths**:
     *   Maps error-handling pathways! Actions configured to run after a failure are rendered as red dotted lines labeled with their transition status:
         *   `Run PowerShell Script -. Failed .-> Send Alert`
