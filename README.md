@@ -96,11 +96,10 @@ The parser maps action types into standard flow diagram shapes and category-brac
     ```powershell
     .\Parse-LogicApp.ps1 -Path ".\samples\complex.json" -Clipboard
     ```
-2.  Open [Excalidraw](https://excalidraw.com/) in your web browser.
-3.  Click on the **More tools** button (the three dots on the tool panel) and select **Mermaid** (or choose **Insert -> Mermaid** from the main menu).
-4.  Paste your clipboard contents into the text box.
-5.  Click **Insert** or **Render**!
-6.  *Voila!* Excalidraw translates the Mermaid script into editable, draggable canvas elements. You can resize text boxes, edit names, move paths, and draw directly over the rendering.
+2.  Open [Mermaid to Excalidraw](https://mermaid-to-excalidraw.vercel.app/) in your web browser.
+3.  Paste your clipboard contents into the text box on the left.
+5.  Click **Render to Excalidraw**!
+6.  *Voila!* The Mermaid content is now rendered as as editable, draggable canvas elements. You can resize text boxes, edit names, move paths, and draw directly over the rendering.
 
 ---
 
