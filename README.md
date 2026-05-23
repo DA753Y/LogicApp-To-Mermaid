@@ -1,6 +1,6 @@
 # Logic App to Mermaid.js Flowchart Parser
 
-A lightweight, robust PowerShell tool designed to parse Azure Logic App definitions (raw JSON code views, JavaScript-wrapped definitions, or ARM deployment templates) and automatically compile them into beautifully structured, color-coded **Mermaid.js** flowcharts.
+A lightweight, mostly vibe coded, PowerShell tool designed to parse Azure Logic App definitions (raw JSON code views, JavaScript-wrapped definitions, or ARM deployment templates) and automatically compile them into beautifully structured, color-coded **Mermaid.js** flowcharts.
 
 This tool is optimized for direct integration with **Excalidraw** (which allows importing Mermaid flowcharts into editable canvas elements), Mermaid Live Editor, and standard Markdown documents.
 
